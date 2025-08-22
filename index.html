@@ -22,19 +22,25 @@
       font-size: 1.8em;
       margin-bottom: 15px;
     }
+    .alias-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
     .alias {
       font-size: 1.6em;
       font-weight: bold;
       color: #0077c8;
-      margin-bottom: 20px;
-      user-select: all; /* permite copiar fácil el alias */
+      user-select: all;
     }
     button {
       background: #00a8e0;
       color: white;
       border: none;
-      padding: 12px 20px;
-      font-size: 1.1em;
+      padding: 10px 16px;
+      font-size: 1em;
       border-radius: 10px;
       cursor: pointer;
       transition: 0.3s;
@@ -47,19 +53,25 @@
 <body>
   <div class="card">
     <h1>Este es mi alias</h1>
-    <p class="alias">luc.axel</p>
-    <button onclick="abrirMP()">Enviar dinero en Mercado Pago</button>
+    
+    <!-- Alias con botón de copiar -->
+    <div class="alias-container">
+      <p class="alias" id="alias">luc.axel</p>
+      <button onclick="copiarAlias()">📋 Copiar</button>
+    </div>
+    
+    <!-- Botón para abrir Mercado Pago -->
+    <button onclick="window.location.href='mercadopago://'">
+      Abrir Mercado Pago
+    </button>
   </div>
 
   <script>
-    function abrirMP() {
-      // Deep link oficial (abre la app si está instalada)
-      window.location.href = "mercadopago://send?alias=luc.axel";
-
-      // Fallback web (si no está la app)
-      setTimeout(() => {
-        window.location.href = "https://link.mercadopago.com.ar/luc.axel";
-      }, 1500);
+    function copiarAlias() {
+      const alias = document.getElementById("alias").innerText;
+      navigator.clipboard.writeText(alias).then(() => {
+        alert("Alias copiado: " + alias);
+      });
     }
   </script>
 </body>
